@@ -21,8 +21,8 @@ export const signup = async (req,res) => {
            const salt = await bcrypt.genSalt(10);
            const hashedPassword = await bcrypt.hash(password,salt);
 
-           const boyProfilePic = 'https://avatar.iran.liara.run/public/boy?username=[value]'
-           const girlProfilePic = 'https://avatar.iran.liara.run/public/girl?username=[value]'
+           const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`
+           const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`
 
            const newUser = new User ({
              fullName,
@@ -65,7 +65,7 @@ export const  login = async (req,res) => {
            }
 
            if(!isPasswordCorrect){
-            return res.status(400).json({error : "invalid  password"});
+            return res.status(400).json({error : "invalid password"});
            }
 
            generateTokenAndSetCookie(user._id,res);
